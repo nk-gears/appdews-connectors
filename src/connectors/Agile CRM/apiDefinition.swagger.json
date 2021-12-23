@@ -1,0 +1,186 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Agile CRM",
+    "description": "Agile CRM connector helps you to connet to the Agile CRM Cloud API to manage Contacts, Deal and Notes",
+    "contact": {
+      "name": "Nirmal",
+      "url": "http://appdews.com",
+      "email": "nirmalk.web@gmail.com"
+    },
+    "termsOfService": "https://www.agilecrm.com/terms"
+  },
+  "host": "api.agilecrm.com",
+  "basePath": "/dev/api",
+  "schemes": ["https"],
+  "consumes": [],
+  "produces": ["application/json"],
+  "paths": {
+    "/contacts/search/email/": {
+      "get": {
+        "summary": "Get Contact By Email",
+        "tags": [
+          "Contacts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "description": "Get Contact By Email",
+              "type": "object"
+
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401-Unauthorized"
+          }
+        },
+        "operationId": "GetContactByEmail",
+        "description": "Returns a Contact"
+
+      }
+    }
+
+  },
+  "definitions": {
+    "error-response": {
+      "description": "Error Response",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "message"
+      ]
+    }
+  },
+  "parameters": {},
+  "responses": {
+    "401-Unauthorized": {
+      "description": "Forbidden Response",
+      "schema": {
+        "$ref": "#/definitions/error-response"
+      }
+    },
+    "404-Not-Found": {
+      "description": "Example response",
+      "schema": {
+        "description": "Not Found",
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "detail": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "pointer": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "403-Forbidden": {
+      "description": "Example response",
+      "schema": {
+        "$ref": "#/definitions/error-response"
+      }
+    },
+    "415-Bad_Content_Type": {
+      "description": "Example response",
+      "schema": {
+        "$ref": "#/definitions/error-response"
+      }
+    },
+    "422-Bad_Request": {
+      "description": "Example response",
+      "schema": {
+        "description": "Bad Request",
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "pointer": {}
+                  }
+                },
+                "detail": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "500-Internal_Server_Error": {
+      "description": "Error 500 cill be returned when using certain parts of the API that are documented, but appear to be no longer in play.\n\n> As an example, Creating (POST) a flexible_asset_types object with the fields definition inline in the\n> attributes object will create an error 500. The only / proper way to create fields is through the \n> relationships object adjacent to the data tag.",
+      "schema": {
+        "type": "object"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API Key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "x-api-key",
+      "description": "Retreive and set the API Key from your IT Glue account."
+    }
+  },
+  "security": [
+    {
+      "API Key": []
+    }
+  ],
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://www.agilecrm.com/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://www.google.com/search?q=agilecrm+privacy&rlz=1C5CHFA_enIN962IN962&oq=agilecrm+privacy&aqs=chrome..69i57j33i10i160i395l2.96818j1j4&sourceid=chrome&ie=UTF-8"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "Data;Marketing"
+    }
+  ],
+  "tags": []
+}

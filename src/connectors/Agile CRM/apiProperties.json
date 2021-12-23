@@ -1,0 +1,45 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "endpointUrl": {
+        "type": "string",
+        "uiDefinition": {
+          "displayName": "Account Domain Name",
+          "description": "Your Agile CRM Account Domain",
+          "tooltip": "Connector uses the API url based on your Domain Name",
+          "constraints": {
+            "tabIndex": 2,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "api_key": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "API key",
+          "description": "The API key for AgileCRM api",
+          "tooltip": "Provide your API key",
+          "constraints": {
+            "tabIndex": 3,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "capabilities": [],
+    "policyTemplateInstances": [
+      {
+        "templateId": "dynamichosturl",
+        "title": "httpEndPointUrl",
+        "parameters": {
+          "x-ms-apimTemplateParameter.urlTemplate": "@connectionParameters('endpointUrl')"
+        }
+      }
+    ],
+    "publisher": "Nirmal Kumar",
+    "stackOwner": "Agile CRM"
+  }
+}
