@@ -7,3 +7,5 @@ This repository uses the PUCC-cli to build the connectors
 # TODO
 
 - [] Add Support for JSON Comments and Strip out during the build
+- [] Add quotable Connector
+- [] Add Nunux Connector
