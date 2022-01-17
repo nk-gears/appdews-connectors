@@ -1,0 +1,245 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "DailyQuotes",
+    "description": "DailyQuotes"
+  },
+  "host": "api.quotable.io",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/random": {
+      "get": {
+        "summary": "Get Random Quote",
+        "description": "Get Random Quote",
+        "operationId": "GetRandomQuote",
+        "parameters": [
+          {
+            "name": "tags",
+            "default": "history",
+            "description": "Get a random quote with specific tag(s). This takes a list of one or more tag names, separated by a comma (meaning AND) or a pipe (meaning OR). A comma separated list will match quotes that have all of the given tags. While a pipe (|) separated list will match quotes that have any one of the provided tags",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "minLength",
+            "default": "8",
+            "description": "The minimum Length in characters ( can be combined with maxLength )",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "maxlength",
+            "default": "100",
+            "description": "The maximum Length in characters ( can be combined with minLength )",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/quotes": {
+      "get": {
+        "summary": "List Quotes",
+        "description": "List Quotes",
+        "operationId": "ListQuotes",
+        "parameters": [
+          {
+            "name": "page",
+            "description": "The page of results to return. If the value is greater than the total number of pages, request will not return any results",
+            "default": "1",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "tag",
+            "default": "famous",
+            "description": "Filter quotes by tag(s). Takes a list of one or more tag names, separated by a comma (meaning AND) or a pipe (meaning OR). A comma separated list will match quotes that have all of the given tags. While a pipe (|) separated list will match quotes that have either of the provided tags",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "author",
+            "default": "albert-einstein",
+            "description": "Get quotes by a specific author. The value can be an author name or slug. To get quotes by multiple authors, provide a pipe separated list of author names/slugs.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/quotes/{quotesId}": {
+      "get": {
+        "summary": "Get Quote By Id",
+        "description": "Get Quote By Id",
+        "operationId": "GetQuoteById",
+        "parameters": [{
+          "name": "quotesId",
+          "default": "life happiness",
+          "description": "The search string. The query can be wrapped in quotes to search for an exact phrase",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "default": {
+            "description": "Get a quote by its ID",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/authors": {
+      "get": {
+        "summary": "List Authors",
+        "description": "List Authors",
+        "operationId": "ListAuthors",
+        "parameters": [
+          {
+            "name": "slug",
+            "default": "albert-einstein|abraham-lincoln",
+            "description": "Filter authors by slug. The value can be one or more author slugs. To get multiple authors by slug, the value should be a pipe separated list of slugs.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/search/quotes": {
+      "get": {
+        "summary": "Search Quotes",
+        "description": "Search Quotes",
+        "operationId": "SearchQuotes",
+        "parameters": [
+          {
+            "name": "query",
+            "default": "life happiness",
+            "description": "The search string. The query can be wrapped in quotes to search for an exact phrase",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "fields",
+            "default": "author",
+            "description": "Specify the fields to search by. This takes a comma separated list of field names. Supported search fields are 'content', 'author', 'tags'. By default, it will search by all fields simultaneously",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/search/authors": {
+      "get": {
+        "summary": "Search Author",
+        "description": "Search Author",
+        "operationId": "SearchAuthor",
+        "parameters": [
+          {
+            "name": "query",
+            "default": "john quincy adams",
+            "description": "Get quotes by a specific author. The value can be an author name or slug. To get quotes by multiple authors, provide a pipe separated list of author names/slugs",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/authors/{authorId}": {
+      "get": {
+        "summary": "Get Author By Slug",
+        "description": "Get Author By Slug",
+        "operationId": "GetAuthorBySlug",
+        "parameters": [{
+          "name": "authorId",
+          "default": "life happiness",
+          "description": "The search string. The query can be wrapped in quotes to search for an exact phrase",
+          "in": "path",
+          "type": "string",
+          "required": true
+        }],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "summary": "List Tags",
+        "description": "List Tags",
+        "operationId": "ListTags",
+        "parameters": [
+          {
+            "name": "order",
+            "default": "asce",
+            "description": "The order in which results are sorted. The default order depends on the sortBy field. For string fields that are sorted alphabetically, the default order is ascending. For number and date fields, the default order is descending",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": []
+}
