@@ -1,0 +1,201 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Nunux Keeper",
+    "description": "Nunux Keeper"
+  },
+  "host": "api.nunux.org",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/keeper/v2/documents": {
+        "post": {
+            "summary": "Create a document",
+            "tags": [
+                "Document"
+            ],
+            "parameters": [
+                {
+                    "name": "body",
+                    "description": "Document to create",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/DocumentPayload"
+                    }
+                },
+                {
+                    "name": "title",
+                    "description": "Document title",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "origin",
+                    "description": "Document source URL",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "Success",
+                    "schema": {
+                        "$ref": "#/definitions/Document"
+                    }
+                },
+                "default": {
+                    "description": "Unexpected error",
+                    "schema": {
+                        "$ref": "#/definitions/Error"
+                    }
+                }
+            },
+            "security": [
+                {
+                    "authenticated": [
+                        "user"
+                    ]
+                }
+            ]
+        },
+      "get": {
+        "summary": "Get Documents",
+        "description": "Get Documents",
+        "operationId": "GetDocuments",
+        "parameters": [
+          {
+            "name": "order",
+            "default": "desc",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/keeper/v2/documents/{document_id}": {
+
+        "delete": {
+            "summary": "Delete Document",
+            "description": "Delete Document",
+            "operationId": "DeleteDocument",
+            "parameters": [],
+            "responses": {
+              "default": {
+                "description": "default",
+                "schema": {}
+              }
+            }
+          },
+          "post": {
+            "summary": "Create a document",
+            "tags": [
+                "Document"
+            ],
+            "parameters": [
+                {
+                    "name": "body",
+                    "description": "Document to create",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/DocumentPayload"
+                    }
+                },
+                {
+                    "name": "title",
+                    "description": "Document title",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "origin",
+                    "description": "Document source URL",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ],
+            "responses": {
+                "201": {
+                    "description": "Success",
+                    "schema": {
+                        "$ref": "#/definitions/Document"
+                    }
+                },
+                "default": {
+                    "description": "Unexpected error",
+                    "schema": {
+                        "$ref": "#/definitions/Error"
+                    }
+                }
+            },
+            "security": [
+                {
+                    "authenticated": [
+                        "user"
+                    ]
+                }
+            ]
+        },
+      "get": {
+        "summary": "Get Document By Id ",
+        "description": "Get  Document By Id ",
+        "operationId": "GetDocumentById",
+        "parameters": [
+            {
+                "name": "document_id",
+    
+                "in": "path",
+                "type": "string",
+                "required": true
+            }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    
+    "/keeper/api-docs.json": {
+      "get": {
+        "summary": "Nunux Document",
+        "description": "Nunux Document",
+        "operationId": "NunuxDocument",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": []
+}
