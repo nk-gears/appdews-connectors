@@ -1,0 +1,2178 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "keeper-core-api",
+      "version": "2.0.0-beta",
+      "description": "Nunux Keeper core API"
+    },
+    "host": "api.nunux.org",
+    "basePath": "/keeper",
+    "securityDefinitions": {
+      "authenticated": {
+        "type": "oauth2",
+        "authorizationUrl": "https://login.nunux.org/auth/realms/nunux-keeper/protocol/openid-connect/auth",
+        "tokenUrl": "https://login.nunux.org/auth/realms/nunux-keeper/protocol/openid-connect/token",
+        "flow": "accessCode",
+        "scopes": {
+          "user": "Authenticated user"
+        }
+      }
+    },
+    "paths": {
+      "/v2/admin/infos": {
+        "get": {
+          "summary": "Get server informations and statistics",
+          "tags": [
+            "Admin"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/AdminInfos"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/admin/users": {
+        "get": {
+          "summary": "Get all users",
+          "tags": [
+            "Admin"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "properties": {
+                  "users": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/admin/users/{uid}": {
+        "get": {
+          "summary": "Get user details",
+          "tags": [
+            "Admin"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/uid"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete user account",
+          "tags": [
+            "Admin"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/uid"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/documents/{docid}/files/{key}": {
+        "get": {
+          "summary": "Download document attachment file",
+          "tags": [
+            "Document",
+            "Attachment"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "$ref": "#/parameters/key"
+            },
+            {
+              "$ref": "#/parameters/imageSize"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "file"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Remove document attachment file",
+          "tags": [
+            "Document",
+            "Attachment"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "$ref": "#/parameters/key"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/documents/{docid}/files": {
+        "post": {
+          "summary": "Upload document attachment file(s).",
+          "tags": [
+            "Document",
+            "Attachment"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "name": "body",
+              "description": "Attachment files",
+              "in": "formData",
+              "required": true,
+              "type": "file"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Attachment"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/clients": {
+        "get": {
+          "summary": "Get user's clients",
+          "tags": [
+            "Client"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clients": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Client"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create new client",
+          "tags": [
+            "Client"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Client to create",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ClientPayload"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Client"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/clients/{clientid}": {
+        "get": {
+          "summary": "Get client details",
+          "tags": [
+            "Client"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/clientid"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Client"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update client details",
+          "tags": [
+            "Client"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/clientid"
+            },
+            {
+              "name": "body",
+              "description": "Client values to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ClientPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Client"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a client",
+          "tags": [
+            "Client"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/clientid"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/documents": {
+        "get": {
+          "summary": "Search documents",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/q"
+            },
+            {
+              "$ref": "#/parameters/from"
+            },
+            {
+              "$ref": "#/parameters/size"
+            },
+            {
+              "$ref": "#/parameters/order"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create a document",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Document to create",
+              "in": "body",
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/DocumentPayload"
+              }
+            },
+            {
+              "name": "title",
+              "description": "Document title",
+              "in": "query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "origin",
+              "description": "Document source URL",
+              "in": "query",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/documents/{docid}": {
+        "get": {
+          "summary": "Get a document",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "name": "raw",
+              "description": "Get RAW document if set",
+              "in": "query",
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update a document",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "name": "body",
+              "description": "Document details to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DocumentPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a document",
+          "description": "The document is not deleted but moved to the graveyard",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/exports": {
+        "get": {
+          "summary": "Download export file",
+          "tags": [
+            "Export"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "file"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Schedule an export of all documents",
+          "tags": [
+            "Export"
+          ],
+          "responses": {
+            "202": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/exports/status": {
+        "get": {
+          "summary": "Get export status",
+          "description": "The response is an event stream of the export job.\n\nexample: 'data: {progress: 20, data: {}}'\n",
+          "tags": [
+            "Export"
+          ],
+          "produces": [
+            "text/event-stream"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/graveyard/documents": {
+        "get": {
+          "summary": "Search documents in the graveyard",
+          "tags": [
+            "Graveyard",
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/from"
+            },
+            {
+              "$ref": "#/parameters/size"
+            },
+            {
+              "$ref": "#/parameters/order"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Remove all documents from the graveyard",
+          "tags": [
+            "Graveyard",
+            "Document"
+          ],
+          "responses": {
+            "204": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/graveyard/documents/{docid}": {
+        "delete": {
+          "summary": "Remove a document from the graveyard",
+          "tags": [
+            "Graveyard",
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Restore a deleted document",
+          "tags": [
+            "Graveyard",
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            },
+            "default": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/": {
+        "get": {
+          "summary": "Get API informations",
+          "tags": [
+            "API informations"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Info"
+              }
+            }
+          }
+        }
+      },
+      "/v2/labels/{labelId}/sharing": {
+        "get": {
+          "summary": "Get sharing of a label",
+          "tags": [
+            "Label",
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Sharing"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update sharing of a label",
+          "tags": [
+            "Label",
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            },
+            {
+              "name": "body",
+              "description": "Sharing values to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SharingPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Sharing"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create a sharing on a label",
+          "tags": [
+            "Label",
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            },
+            {
+              "name": "body",
+              "description": "Sharing to create",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SharingPayload"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Sharing"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete sharing of a label",
+          "tags": [
+            "Label",
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/labels": {
+        "get": {
+          "summary": "Get all user's labels",
+          "tags": [
+            "Label"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Label"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create new label",
+          "tags": [
+            "Label"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Label to create",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/LabelPayload"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Label"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/labels/{labelId}": {
+        "get": {
+          "summary": "Get label details",
+          "tags": [
+            "Label"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Label"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update label details",
+          "tags": [
+            "Label"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            },
+            {
+              "name": "body",
+              "description": "Label values to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/LabelPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Label"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a label",
+          "description": "The label is not deleted but moved to the graveyard",
+          "tags": [
+            "Label"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/graveyard/labels/{labelId}": {
+        "put": {
+          "summary": "Restore a deleted label",
+          "tags": [
+            "Graveyard",
+            "Label"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/labelId"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Label"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/profiles/current": {
+        "get": {
+          "summary": "Get current profile informations",
+          "tags": [
+            "Profile"
+          ],
+          "parameters": [
+            {
+              "name": "withStats",
+              "description": "Add profile statistics",
+              "in": "query",
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Profile"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update current profile informations",
+          "tags": [
+            "Profile"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Profile values to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ProfilePayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Profile"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/public/{sid}": {
+        "get": {
+          "summary": "Get public documents.",
+          "tags": [
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/q"
+            },
+            {
+              "$ref": "#/parameters/from"
+            },
+            {
+              "$ref": "#/parameters/size"
+            },
+            {
+              "$ref": "#/parameters/order"
+            },
+            {
+              "$ref": "#/parameters/output"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          }
+        }
+      },
+      "/v2/public/{sid}/{docid}": {
+        "get": {
+          "summary": "Get public document",
+          "tags": [
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            }
+          }
+        }
+      },
+      "/v2/public/{sid}/{docid}/files/{key}": {
+        "get": {
+          "summary": "Get public document's files",
+          "tags": [
+            "Sharing",
+            "Document",
+            "Attachment"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "$ref": "#/parameters/key"
+            },
+            {
+              "$ref": "#/parameters/imageSize"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "file"
+              }
+            }
+          }
+        }
+      },
+      "/v2/sharing": {
+        "get": {
+          "summary": "Get all user's sharing.",
+          "tags": [
+            "Sharing"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "properties": {
+                  "sharing": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Sharing"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/sharing/{sid}": {
+        "get": {
+          "summary": "Get shared documents.",
+          "tags": [
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/q"
+            },
+            {
+              "$ref": "#/parameters/from"
+            },
+            {
+              "$ref": "#/parameters/size"
+            },
+            {
+              "$ref": "#/parameters/order"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SearchResult"
+              }
+            }
+          }
+        }
+      },
+      "/v2/sharing/{sid}/{docid}": {
+        "get": {
+          "summary": "Get shared document",
+          "tags": [
+            "Sharing"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            }
+          }
+        }
+      },
+      "/v2/sharing/{sid}/{docid}/files/{key}": {
+        "get": {
+          "summary": "Get shared document's files",
+          "tags": [
+            "Sharing",
+            "Document",
+            "Attachment"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/sid"
+            },
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "$ref": "#/parameters/key"
+            },
+            {
+              "$ref": "#/parameters/imageSize"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "file"
+              }
+            }
+          }
+        }
+      },
+      "/v2/webhooks": {
+        "get": {
+          "summary": "Search user's webhooks",
+          "tags": [
+            "Webhook"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/webhookLabel"
+            },
+            {
+              "$ref": "#/parameters/webhookEvent"
+            },
+            {
+              "$ref": "#/parameters/webhookActive"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "webhooks": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Webhook"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "post": {
+          "summary": "Create new webhook",
+          "tags": [
+            "Webhook"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Webhook to create",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/WebhookPayload"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Webhook"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+      "/v2/webhooks/{webhookId}": {
+        "get": {
+          "summary": "Get webhook details",
+          "tags": [
+            "Webhook"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/webhookId"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Webhook"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update webhook details",
+          "tags": [
+            "Webhook"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/webhookId"
+            },
+            {
+              "name": "body",
+              "description": "Webhook values to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/WebhookPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Webhook"
+              }
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a webhook",
+          "tags": [
+            "Webhook"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/webhookId"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "Info": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Project name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Project description"
+          },
+          "version": {
+            "type": "string",
+            "description": "Project version"
+          },
+          "apiVersion": {
+            "type": "string",
+            "description": "API version"
+          },
+          "env": {
+            "type": "string",
+            "description": "Environment (development/production)"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error description"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Error meta data"
+          }
+        }
+      },
+      "SearchResult": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total of items"
+          },
+          "hits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Document"
+            }
+          }
+        }
+      },
+      "Attachment": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Attachment key",
+            "x-faker": "random.uuid"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Content type of the attachment",
+            "x-faker": {
+              "random.arrayElement": [
+                [
+                  "image/jpeg"
+                ]
+              ]
+            }
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source URL of the attachment",
+            "x-faker": "image.imageUrl"
+          }
+        }
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document ID",
+            "x-faker": "random.uuid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the document",
+            "x-faker": "lorem.sentence"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the document",
+            "x-faker": "lorem.paragraphs"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Content type of the document",
+            "x-faker": {
+              "random.arrayElement": [
+                [
+                  "text/html",
+                  "text/plain"
+                ]
+              ]
+            }
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source URL of the document",
+            "x-faker": "internet.url"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last modification",
+            "x-faker": "date.past"
+          },
+          "labels": {
+            "type": "array",
+            "description": "Labels of the document",
+            "items": {
+              "type": "string"
+            }
+          },
+          "attacments": {
+            "type": "array",
+            "description": "Document attachments",
+            "items": {
+              "$ref": "#/definitions/Attachment"
+            }
+          }
+        }
+      },
+      "DocumentPayload": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the document"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the document"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source URL of the document"
+          },
+          "labels": {
+            "type": "array",
+            "description": "Labels of the document",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Label": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Label ID",
+            "x-faker": "random.uuid"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label value",
+            "x-faker": "commerce.product"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color",
+            "x-faker": "internet.color"
+          }
+        }
+      },
+      "LabelPayload": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Label value"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string",
+            "description": "User ID (email)",
+            "x-faker": "internet.email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "x-faker": "name.findName"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Registration date",
+            "x-faker": "date.past"
+          }
+        }
+      },
+      "ProfilePayload": {
+        "type": "object",
+        "properties": {
+          "resetApiKey": {
+            "type": "boolean",
+            "description": "Ask to reste the API key"
+          }
+        }
+      },
+      "Sharing": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Sharing ID",
+            "x-faker": "random.uuid"
+          },
+          "targetLabel": {
+            "type": "string",
+            "description": "Targeted label ID"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last modification date",
+            "x-faker": "date.past"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date to start the sharing",
+            "x-faker": "date.past"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date to end the sharing",
+            "x-faker": "date.future"
+          },
+          "pub": {
+            "type": "boolean",
+            "description": "Set if the sharing is public or not",
+            "x-faker": "random.boolean"
+          }
+        }
+      },
+      "SharingPayload": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date to start the sharing"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date to end the sharing"
+          },
+          "pub": {
+            "type": "boolean",
+            "description": "Set if the sharing is public or not"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "User technical ID"
+          },
+          "uid": {
+            "type": "string",
+            "description": "User ID (email)"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Registration date"
+          },
+          "hash": {
+            "type": "string",
+            "description": "Public hash"
+          },
+          "nbDocuments": {
+            "type": "integer",
+            "description": "Number of documents"
+          },
+          "nbLabels": {
+            "type": "integer",
+            "description": "Number of labels"
+          },
+          "nbSharing": {
+            "type": "integer",
+            "description": "Number of sharing"
+          },
+          "storageUsage": {
+            "type": "integer",
+            "description": "Storage used (bytes)"
+          },
+          "gravatar": {
+            "type": "string",
+            "description": "Gravatar URL"
+          }
+        }
+      },
+      "AdminInfos": {
+        "type": "object",
+        "properties": {
+          "nbUsers": {
+            "type": "integer",
+            "description": "Number of users"
+          },
+          "nbDocuments": {
+            "type": "integer",
+            "description": "Number of documents"
+          }
+        }
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Webhook ID"
+          },
+          "url": {
+            "type": "string",
+            "description": "Payload URL"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Webhook secret"
+          },
+          "events": {
+            "type": "array",
+            "description": "Event filter",
+            "items": {
+              "type": "string"
+            }
+          },
+          "labels": {
+            "type": "array",
+            "description": "Label filter",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Webhook status"
+          },
+          "cdate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of creation"
+          },
+          "mdate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last modification"
+          }
+        }
+      },
+      "WebhookPayload": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Payload URL"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Webhook secret"
+          },
+          "events": {
+            "type": "array",
+            "description": "Event filter",
+            "items": {
+              "type": "string"
+            }
+          },
+          "labels": {
+            "type": "array",
+            "description": "Label filter",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Webhook status"
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Client ID (internal)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Client name"
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Client ID (external)"
+          },
+          "secret": {
+            "type": "string",
+            "description": "Client secret"
+          },
+          "redirectUris": {
+            "type": "array",
+            "description": "Redirect URI list",
+            "items": {
+              "type": "string"
+            }
+          },
+          "webOrigins": {
+            "type": "array",
+            "description": "Web origins list",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cdate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of creation"
+          },
+          "mdate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last modification"
+          }
+        }
+      },
+      "ClientPayload": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Client name"
+          },
+          "redirectUris": {
+            "type": "array",
+            "description": "Redirect URI list",
+            "items": {
+              "type": "string"
+            }
+          },
+          "webOrigins": {
+            "type": "array",
+            "description": "Web origins list",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "responses": {},
+    "parameters": {
+      "uid": {
+        "name": "uid",
+        "description": "User id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "docid": {
+        "name": "docid",
+        "description": "Document id",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "clientid": {
+        "name": "clientid",
+        "description": "clientid",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "labelId": {
+        "name": "labelId",
+        "description": "Label ID",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "sid": {
+        "name": "sid",
+        "description": "Sharing ID",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "key": {
+        "name": "key",
+        "description": "Attachment key",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "q": {
+        "name": "q",
+        "description": "Query",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      },
+      "from": {
+        "name": "from",
+        "description": "Item index from",
+        "in": "query",
+        "required": false,
+        "type": "integer",
+        "default": 0,
+        "minimum": 0
+      },
+      "size": {
+        "name": "size",
+        "description": "Number of items to retrieve",
+        "in": "query",
+        "required": false,
+        "type": "integer",
+        "default": 50,
+        "minimum": 1,
+        "maximum": 100
+      },
+      "order": {
+        "name": "order",
+        "description": "Sort order (asc or desc)",
+        "in": "query",
+        "required": false,
+        "type": "string",
+        "default": "asc",
+        "enum": [
+          "asc",
+          "desc"
+        ]
+      },
+      "output": {
+        "name": "output",
+        "description": "Output type (json by default or RSS)",
+        "in": "query",
+        "required": false,
+        "type": "string",
+        "enum": [
+          "json",
+          "rss"
+        ]
+      },
+      "imageSize": {
+        "name": "size",
+        "description": "Size of the image (applicable only if the content type is an image)\n\nThis is useful to get a thumbnail of the image attachment.\nOnly the size \"320x200\" is supported.\n",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      },
+      "jobName": {
+        "name": "name",
+        "description": "Job name",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "webhookId": {
+        "name": "webhookId",
+        "description": "Webhook ID",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      "webhookLabel": {
+        "name": "label",
+        "description": "label filter",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      },
+      "webhookEvent": {
+        "name": "event",
+        "description": "event filter",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      },
+      "webhookActive": {
+        "name": "active",
+        "description": "active filter",
+        "in": "query",
+        "required": false,
+        "type": "boolean"
+      }
+    },
+    "tags": [
+      {
+        "name": "API informations"
+      },
+      {
+        "name": "Profile"
+      },
+      {
+        "name": "Label"
+      },
+      {
+        "name": "Document"
+      },
+      {
+        "name": "Attachment"
+      },
+      {
+        "name": "Sharing"
+      },
+      {
+        "name": "Graveyard"
+      },
+      {
+        "name": "Webhook"
+      },
+      {
+        "name": "Client"
+      },
+      {
+        "name": "Admin"
+      }
+    ]
+  }
