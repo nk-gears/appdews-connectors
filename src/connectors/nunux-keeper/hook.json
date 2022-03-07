@@ -1,0 +1,102 @@
+,
+      "/v2/webhooks": {
+        "x-ms-notification-content": {
+          "description": "WebhookPayload",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "id"
+              },
+              "url": {
+                "type": "string",
+                "description": "url",
+                "title": "WebhookUrl",
+                "x-ms-visibility": "internal"
+              },
+              "secret": {
+                "type": "string",
+                "description": "secret"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "events"
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "labels"
+              },
+              "active": {
+                "type": "boolean",
+                "description": "active"
+              },
+              "cdate": {
+                "type": "string",
+                "description": "cdate"
+              },
+              "mdate": {
+                "type": "string",
+                "description": "mdate"
+              }
+            }
+          }
+        },
+        "post": {
+          "responses": {},
+          "summary": "On Bookmark Created",
+          "description": "Triggers when a New Bookmark is Created",
+          "operationId": "OnBookmarkCreated",
+          "x-ms-trigger": "single",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": false,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "url",
+                    "x-ms-notification-url": true,
+                    "x-ms-visibility": "internal",
+                    "title": ""
+                  },
+                  "secret": {
+                    "type": "string",
+                    "description": "secret"
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "events"
+                  },
+                  "labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "labels"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "description": "active"
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            }
+          ]
+        }
+      }

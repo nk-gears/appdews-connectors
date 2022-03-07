@@ -51,6 +51,7 @@ As and when a bookmark is created/updated in my Nunux Keeper Account, as a Power
 TODO Items:
 
 - [x] *Get Bookmarks*
+- [x] *Create Bookmark*
 - [ ] *Put Bookmark*
 - [ ] *Delete Bookmark*
 - [ ] *Get Webhooks*

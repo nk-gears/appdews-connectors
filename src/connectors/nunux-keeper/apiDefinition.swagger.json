@@ -1,0 +1,508 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Nunux Keeper Demo",
+      "contact":{
+        "email":"Nirmalk.web@gmail.com",
+        "name":"Nirmal Deekshith"
+      },
+      "description": "Nunux Keeper helps to create bookmarks and also provide options to tag the booksmarks"
+    },
+    "host": "api.nunux.org",
+    "basePath": "/keeper",
+    "schemes": [
+      "https"
+    ],
+    "consumes": [],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+    
+      "/v2/documents/{docid}": {
+        "get": {
+          "summary": "Get a document",
+          "description":"Get Bookmark",
+          "operationId":"GetBookmark",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "name": "raw",
+              "description": "Get RAW document if set",
+              "in": "query",
+              "x-ms-summary":"raw",
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "put": {
+          "summary": "Update a document",
+          "operationId":"UpdateBookmark",
+          "description":"Update a Bookmark",
+          "produces": [
+            "application/json"
+          ],
+          "consumes":["application/json"],
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            },
+            {
+              "name": "body",
+              "description": "Document details to update",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DocumentPayload"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        },
+        "delete": {
+          "summary": "Delete a document",
+          "operationId":"DeleteBookmark",
+          "description": "The document is not deleted but moved to the graveyard",
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "$ref": "#/parameters/docid"
+            }
+          ],
+          "responses": {
+            "205": {
+              "description": "Success"
+            },
+            "default": {
+              "description": "Unexpected error"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      },
+
+      "/v2/documents": {
+        "get": {
+          "summary": "Get Bookmarks",
+          "description": "Get Bookmarks",
+          "operationId": "GetBookmarks",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": false,
+              "x-ms-summary":"q",
+              "description": "Query",
+              "type": "string"
+            },
+            {
+              "name": "size",
+              "in": "query",
+              "required": false,
+              "x-ms-summary":"size",
+              "description": "Size",
+              "type": "integer"
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "required": false,
+              "x-ms-summary":"order",
+              "description": "Order",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "getlist",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "total"
+                  },
+                  "hits": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "id"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "title"
+                        },
+                        "content": {
+                          "type": "string",
+                          "description": "content"
+                        },
+                        "contentType": {
+                          "type": "string",
+                          "description": "contentType"
+                        },
+                        "origin": {
+                          "type": "string",
+                          "description": "origin"
+                        },
+                        "date": {
+                          "type": "string",
+                          "description": "date"
+                        },
+                        "labels": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "labels"
+                        },
+                        "attacments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "key"
+                              },
+                              "contentType": {
+                                "type": "string",
+                                "description": "contentType"
+                              },
+                              "origin": {
+                                "type": "string",
+                                "description": "origin"
+                              }
+                            }
+                          },
+                          "description": "attacments"
+                        }
+                      }
+                    },
+                    "description": "hits"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a document",
+          "operationId":"CreateBookmark",
+          "description":"Create a Bookmark",
+          "produces": [
+            "application/json"
+          ],
+          "consumes":["application/json"],
+          "tags": [
+            "Document"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "description": "Document to create",
+              "x-ms-summary":"Info",
+              "in": "body",
+
+              "required": false,
+              "schema": {
+                "$ref": "#/definitions/DocumentPayload"
+              }
+            },
+            {
+              "name": "title",
+              "x-ms-summary":"title",
+              "description": "Document title",
+              "in": "query",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "origin",
+              "description": "Document source URL",
+              "in": "query",
+              "x-ms-summary":"origin",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Document"
+              }
+            },
+            "default": {
+              "description": "Unexpected error"
+            }
+          },
+          "security": [
+            {
+              "authenticated": [
+                "user"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "definitions": {
+      "Document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document ID"
+
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the document"
+        
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the document"
+            
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Content type of the document"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source URL of the document"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the last modification"
+          },
+          "labels": {
+            "type": "array",
+            "description": "Labels of the document",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DocumentPayload": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the document"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the document"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Source URL of the document"
+          },
+          "labels": {
+            "type": "array",
+            "description": "Labels of the document",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error description"
+          },
+          "meta": {
+            "type": "object",
+            "description": "Error meta data"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "uid": {
+        "name": "uid",
+        "description": "User id",
+        "in": "path",
+        "x-ms-url-encoding":"single",
+        "required": true,
+        "x-ms-summary":"User Id",
+        "type": "string"
+      },
+      "docid": {
+        "name": "docid",
+        "description": "Document id",
+        "in": "path",
+        "x-ms-url-encoding":"single",
+        "x-ms-summary":"Bookmark Id",
+        "required": true,
+        "type": "string"
+      },
+     
+       
+    
+      "q": {
+        "name": "q",
+        "description": "Query",
+        "in": "query",
+        "required": false,
+        "x-ms-summary":"Query",
+        "type": "string"
+      },
+      "from": {
+        "name": "from",
+        "description": "Item index from",
+        "in": "query",
+        "required": false,
+        "type": "integer",
+        "x-ms-summary":"from",
+    
+        "default": 0,
+        "minimum": 0
+      },
+      "size": {
+        "name": "size",
+        "description": "Number of items to retrieve",
+        "in": "query",
+        "required": false,
+        "x-ms-summary":"size",
+        "type": "integer",
+        "default": 50,
+        "minimum": 1,
+        "maximum": 100
+      },
+      "order": {
+        "name": "order",
+        "description": "Sort order (asc or desc)",
+        "in": "query",
+        "required": false,
+        "x-ms-summary":"order",
+        "type": "string",
+        "default": "asc",
+        "enum": [
+          "asc",
+          "desc"
+        ]
+      },
+      "output": {
+        "name": "output",
+        "description": "Output type (json by default or RSS)",
+        "in": "query",
+        "required": false,
+        "x-ms-summary":"output",
+        "type": "string",
+        "enum": [
+          "json",
+          "rss"
+        ]
+      },
+      
+      "webhookId": {
+        "name": "webhookId",
+        "description": "Webhook ID",
+        "in": "path",
+        "x-ms-url-encoding":"single",
+        "required": true,
+        "x-ms-summary":"Webhook Id",
+        "type": "string"
+      }
+      
+    },
+    "responses": {},
+    "securityDefinitions": {
+      "oauth2_auth": {
+        "type": "oauth2",
+        "flow": "accessCode",
+        "authorizationUrl": "https://login.nunux.org/auth/realms/nunux-keeper/protocol/openid-connect/auth",
+        "tokenUrl": "https://login.nunux.org/auth/realms/nunux-keeper/protocol/openid-connect/token",
+        "scopes": {
+          "offline_access": "offline_access"
+        }
+      }
+    },
+    "security": [
+      {
+        "oauth2_auth": [
+          "offline_access"
+        ]
+      }
+    ],
+    "x-ms-connector-metadata": [
+      {
+        "propertyName": "Website",
+        "propertyValue": "https://www.nunuxkeeper.com/"
+      },
+      {
+        "propertyName": "Privacy policy",
+        "propertyValue": "https://www.google.com/search?q=agilecrm+privacy&rlz=1C5CHFA_enIN962IN962&oq=agilecrm+privacy&aqs=chrome..69i57j33i10i160i395l2.96818j1j4&sourceid=chrome&ie=UTF-8"
+      },
+      {
+        "propertyName": "Categories",
+        "propertyValue": "Data;Marketing"
+      }
+    ],
+    "tags": []
+  }
