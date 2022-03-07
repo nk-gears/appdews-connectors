@@ -1,0 +1,77 @@
+{
+"swagger": "2.0",
+"info": {"version": "1.0.0", "title": "Nunux Keeper","description":"Nunux Keeper"},
+"host":"api.nunux.org",
+"basePath": "/",
+"schemes": ["https"],
+"consumes": [],
+"produces": ["application/json"],
+"paths":{
+    "/keeper/v2/documents":{
+        "get":{
+            "summary": "Get Documents",
+          "description": "Get Documents",
+          "operationId": "GetDocuments",
+          "parameters":[
+           {"name": "order", "default":"desc","in":"query","type":"string","required": true}],
+          "responses":{
+            "default":{
+                "description":"default",
+                "schema": {}
+          }
+           
+           }
+              
+        }, 
+      "/keeper/v2/documents/61dbda6ab2c3a10026df56f8":{
+        "get":{
+            "summary": "Put Document",
+        "description": "Put Document",
+        "operationId": "PutDocument",
+        "parameters": [],
+        "responses":{
+            "default":{
+                "description":"default",
+            "schema": {}
+            }
+                    }
+         
+        }
+        
+      },
+        
+      "/keeper/v2/documents/61dbdb2fb2c3a10026df56fa":{
+        "get":{
+            "summary": "Delete Document"
+            "description": Delete Document
+            operationId: DeleteDocument
+            parameters: []
+            responses:{}
+              default:{}
+                description: default
+                    schema: {}
+        }
+           
+      },
+       
+      /keeper/api-docs.json:
+        get:{
+          summary: Nunux Document
+          description: Nunux Document
+          operationId: NunuxDocument
+          parameters: []
+          responses:
+            default:
+              description: default
+              schema: {}
+        }         
+    definitions: {}
+    parameters: {}
+    responses: {}
+    securityDefinitions: {}
+    security: []
+    tags: []
+
+}
+  
+}
