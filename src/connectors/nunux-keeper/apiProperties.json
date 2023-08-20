@@ -1,13 +1,25 @@
 {
   "properties": {
     "connectionParameters": {
-     
-      "api_key": {
+      "username": {
         "type": "securestring",
         "uiDefinition": {
-          "displayName": "API key",
-          "description": "The API key for Nununx Keeper api",
-          "tooltip": "Provide your API key",
+          "displayName": "username",
+          "description": "The username for this api",
+          "tooltip": "Provide the username",
+          "constraints": {
+            "tabIndex": 2,
+            "clearText": true,
+            "required": "true"
+          }
+        }
+      },
+      "password": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "password",
+          "description": "The password for this Nunux Keeper Api",
+          "tooltip": "Provide the password",
           "constraints": {
             "tabIndex": 3,
             "clearText": false,
@@ -18,16 +30,7 @@
     },
     "iconBrandColor": "#da3b01",
     "capabilities": [],
-    "policyTemplateInstances": [
-      {
-        "templateId": "dynamichosturl",
-        "title": "httpEndPointUrl",
-        "parameters": {
-          "x-ms-apimTemplateParameter.urlTemplate": "https://api:@connectionParameters('api_key')@api.nunux.org"
-        }
-      }
-    ],
-    "publisher": "Nirmal Deekshith",
+    "publisher": "Nirmal Kumar",
     "stackOwner": "Nunux Keeper"
   }
 }

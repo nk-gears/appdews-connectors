@@ -52,12 +52,53 @@ TODO Items:
 
 - [x] *Get Bookmarks*
 - [x] *Create Bookmark*
-- [ ] *Put Bookmark*
-- [ ] *Delete Bookmark*
-- [ ] *Get Webhooks*
+- [x] *Put Bookmark*
+- [x] *Delete Bookmark*
+- [x] *Get Webhooks*
 - [ ] *Delete Webhooks*
 - [ ] Fix the oAuth Issues
 
 
+Presentation Plan
+
+March 30 2022 : 8:30 PM to 9:30 PM
+Organizer : Natalie & Team (Co-ordinators Team)
+
+Max 25-30 Minutes
+
+Title :
+Integrating Triggers in Custom Connectors
+- Do something As and When it Happens
+
+Intro of Webhooks : 3 Minutes : Nirmal
+- What is a Triggers
+- Types of Triggers (Webhooks and Poll)
+- Why we need
+
+Demo : Deekshith
+Creating Webhook from UI :  : 10 Minutes
+Creating Poll Trigger from UI : 5 Minutes
+
+Demo : Nirmal
+Creating Webhook/Poll Trigger via Code and Deploy via Paconn   : 10 Minutes
+QA Time : 5 Minutes
+
+================================
 
 
+Intro : Nirmal
+Followed by Demo : Deekshith via UI Power Automate Flow
+Followed by Demo : Nirmal via PaconnCode.
+
+
+
+https://nordicapis.com/stop-polling-and-consider-using-rest-hooks/
+
+https://nordicapis.com/webhooks-vs-websub-which-one-is-better-to-stream-your-events-in-real-time/
+
+https://webhooks.pbworks.com/w/page/13385124/FrontPage
+
+
+https://webhooks.pbworks.com/w/page/13385128/RESTful%20WebHooks
+
+https://graph.microsoft.com/v1.0/me/drive/root/children?$orderBy=createdDateTime desc

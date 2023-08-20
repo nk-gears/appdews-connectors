@@ -1,0 +1,6 @@
+{
+  "files.exclude": {
+    "src/connectors/nunux-keeper": true,
+    "src/connectors/onedrive-hook": true
+  }
+}

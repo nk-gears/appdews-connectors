@@ -1,0 +1,224 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OneDriveClient",
+    "description": "OneDrive Client for Testing Webhook demo",
+    "version": "1.0",
+    "contact": {
+      "name": "Nirmal",
+      "url": "https://nkdews.me",
+      "email": "nirmalk.web@gmail.com"
+    }
+  },
+  "host": "graph.microsoft.com",
+  "basePath": "/v1.0",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/subscriptions-list": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "GetSubscriptions",
+        "description": "GetSubscriptions",
+        "operationId": "GetSubscriptions",
+        "parameters": []
+      }
+    },
+    "/subscriptions": {
+      "x-ms-notification-content": {
+        "description": "200",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "subscriptionId": {
+                    "type": "string",
+                    "description": "subscriptionId"
+                  },
+                  "expirationDateTime": {
+                    "type": "string",
+                    "description": "expirationDateTime"
+                  },
+                  "resource": {
+                    "type": "string",
+                    "description": "resource"
+                  },
+                  "clientState": {
+                    "type": "string",
+                    "description": "clientState"
+                  }
+                }
+              },
+              "description": "value"
+            }
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "OnFileChanged",
+        "description": "OnFileChanged",
+        "operationId": "OnFileChanged",
+        "x-ms-trigger": "single",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "changeType": {
+                  "type": "string",
+                  "description": "changeType"
+                },
+                "notificationUrl": {
+                  "type": "string",
+                  "description": "notificationUrl",
+                  "x-ms-notification-url": true,
+                  "x-ms-visibility": "internal",
+                  "title": ""
+                },
+                "resource": {
+                  "type": "string",
+                  "description": "resource"
+                },
+                "expirationDateTime": {
+                  "type": "string",
+                  "description": "expirationDateTime"
+                },
+                "clientState": {
+                  "type": "string",
+                  "description": "clientState"
+                }
+              },
+              "required": [
+                "notificationUrl"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/me/drive/root/delta": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "deltafiles",
+        "description": "deltaFiles",
+        "operationId": "GetDelatFiles",
+        "parameters": []
+      }
+    },
+    "/subscriptions/{subId}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "GetSubscription",
+        "description": "GetSubscription",
+        "operationId": "GetSubscription",
+        "parameters": [
+          {
+            "name": "subId",
+            "x-ms-summary": "SubId",
+            "in": "path",
+            "description": "SubId",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/subscriptions('{subId}')": {
+      "delete": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Delete Webhook",
+        "description": "DeleteWebhook",
+        "operationId": "DeleteWebhook",
+        "x-ms-visibility": "internal",
+        "parameters": [
+          {
+            "name": "subId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "undefined": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.live.com/oauth20_authorize.srf",
+      "tokenUrl": "https://login.live.com/oauth20_token.srf",
+      "scopes": {
+        "Files.Read": "Files.Read",
+        "Files.ReadWrite": "Files.ReadWrite",
+        "Files.Read.All": "Files.Read.All",
+        "Files.ReadWrite.All": "Files.ReadWrite.All",
+        "offline_access": "offline_access"
+      }
+    }
+  },
+  "security": [
+    {
+      "undefined": [
+        "Files.Read",
+        "Files.ReadWrite",
+        "Files.Read.All",
+        "Files.ReadWrite.All",
+        "offline_access"
+      ]
+    }
+  ],
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://www.nunuxkeeper.com/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://www.google.com/search?q=agilecrm+privacy&rlz=1C5CHFA_enIN962IN962&oq=agilecrm+privacy&aqs=chrome..69i57j33i10i160i395l2.96818j1j4&sourceid=chrome&ie=UTF-8"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "Data;Marketing"
+    }
+  ],
+  "tags": []
+}

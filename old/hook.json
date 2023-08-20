@@ -1,4 +1,4 @@
-,
+
       "/v2/webhooks": {
         "x-ms-notification-content": {
           "description": "WebhookPayload",

@@ -1,0 +1,77 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "oauth2",
+          "clientId": "{{CLIENT_ID}}",
+          "grantType": "client_credentials",
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "properties": {
+            "IsFirstParty": "False"
+          },
+          "customParameters": {
+            "authorizationUrlTemplate": {
+              "value": "https://apigtwb2c.us.dell.com/auth/oauth/v2/token"
+            },
+            "refreshBodyTemplate": {
+              "value": "client_id={AppUserId}&code={Code}&redirect_uri={RedirectUrl}&grant_type=client_credentials&client_secret={AppUserSecret}&refresh_token_type=dummy&operation=refresh"
+            },
+            "refreshUrlTemplate": {
+              "value": "https://apigtwb2c.us.dell.com/auth/oauth/v2/token"
+            },
+            "scopeListDelimiter": {
+              "value": " "
+            },
+            "tokenBodyTemplate": {
+              "value": "client_id={AppUserId}&code={Code}&redirect_uri={RedirectUrl}&grant_type=client_credentials&client_secret={AppUserSecret}&refresh_token_type=dummy&operation=token"
+            },
+            "tokenUrlTemplate": {
+              "value": "https://apigtwb2c.us.dell.com/auth/oauth/v2/token"
+            }
+          }
+        },
+        "uiDefinition": {
+          "constraints": {
+            "tabIndex": 4,
+            "required": "true"
+          },
+          "description": "Login with your credentials",
+          "displayName": "Login with your credentials",
+          "tooltip": "Login with your credentials"
+        }
+      },
+
+      "token:AppUserId": {
+        "type": "string",
+        "uiDefinition": {
+          "constraints": {
+            "tabIndex": 3,
+            "required": "true"
+          },
+          "description": "Id of Dell Warranty API",
+          "displayName": "Dell Warranty API User Id",
+          "tooltip": "Id assigned for Dell Warranty API"
+        }
+      },
+      "token:AppUserSecret": {
+        "type": "securestring",
+        "uiDefinition": {
+          "constraints": {
+            "tabIndex": 4,
+            "required": "true"
+          },
+          "description": " API Secret",
+          "displayName": " API Secret",
+          "tooltip": "Secret of  User"
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "publisher": "Nirmal",
+    "stackOwner": "Dell",
+    "capabilities": []
+  }
+}

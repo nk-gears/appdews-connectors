@@ -28,11 +28,61 @@
                     "x-ms-summary": "Last Name",
                     "description": "Last Name"
                   },
+                  "organisation_name": {
+                    "type": "string",
+                    "x-ms-summary": "Organisation name",
+                    "description": "Organisation name"
+                  },
                   "email": {
                     "type": "string",
                     "x-ms-summary": "Email",
                     "description": "Email"
-                  }
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "x-ms-summary": "Telephone",
+                    "description": "Telephone"
+                },
+                "mobile": {
+                    "type": "string",
+                    "x-ms-summary": "Mobile",
+                    "description": "Mobile"
+                },
+                "address1": {
+                    "type": "string",
+                    "x-ms-summary": "Address 1",
+                    "description": "Address 1"
+                },
+                "address2": {
+                    "type": "string",
+                    "x-ms-summary": "Address 2",
+                    "description": "Address 2"
+                },
+                "address3": {
+                    "type": "string",
+                    "x-ms-summary": "Address 3",
+                    "description": "Address 3"
+                },
+                "town": {
+                    "type": "string",
+                    "x-ms-summary": "Town",
+                    "description": "Town"
+                },
+                "region": {
+                    "type": "string",
+                    "x-ms-summary": "Region",
+                    "description": "Region"
+                },
+                "postcode": {
+                    "type": "string",
+                    "x-ms-summary": "Postcode",
+                    "description": "Postcode"
+                },
+                "country": {
+                    "type": "string",
+                    "x-ms-summary": "Country",
+                    "description": "Country"
+                }
                 },
                 "x-ms-summary": "Contact",
                 "description": "Contact"

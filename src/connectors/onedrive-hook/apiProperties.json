@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "live",
+          "clientId": "1ae1f730-32a9-4913-a08c-75d89ee8fe09",
+          "scopes": [
+            "Files.Read",
+            "Files.ReadWrite",
+            "Files.Read.All",
+            "Files.ReadWrite.All",
+            "offline_access"
+          ],
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "properties": {
+            "IsFirstParty": "False",
+            "IsOnbehalfofLoginSupported": false
+          },
+          "customParameters": {}
+        }
+      }
+    },
+    "iconBrandColor": "#007ee5",
+    "capabilities": [],
+    "policyTemplateInstances": [
+      {
+        "templateId": "routerequesttoendpoint",
+        "title": "httpEndPointUrl",
+        "parameters": {
+          "x-ms-apimTemplateParameter.newPath": "/subscriptions",
+          "x-ms-apimTemplateParameter.httpMethod": "@Request.OriginalHTTPMethod",
+          "x-ms-apimTemplate-operationName": [
+            "GetSubscriptions"
+          ]
+        }
+      },
+      {
+        "templateId": "setheader",
+        "title": "SetLocationHeader",
+        "parameters": {
+          "x-ms-apimTemplateParameter.name": "location",
+          "x-ms-apimTemplateParameter.value": "https://graph.microsoft.com/v1.0/subscriptions/@body().id",
+          "x-ms-apimTemplateParameter.existsAction": "override",
+          "x-ms-apimTemplate-policySection": "Response",
+          "x-ms-apimTemplate-operationName": [
+            "OnFileChanged"
+          ]
+        }
+      }
+    ],
+    "publisher": "Nirmal Kumar"
+  }
+}

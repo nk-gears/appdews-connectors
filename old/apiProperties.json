@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "connectionParameters": {
+     
+      "api_key": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "API key",
+          "description": "The API key for Nununx Keeper api",
+          "tooltip": "Provide your API key",
+          "constraints": {
+            "tabIndex": 3,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "capabilities": [],
+    "policyTemplateInstances": [
+      {
+        "templateId": "dynamichosturl",
+        "title": "httpEndPointUrl",
+        "parameters": {
+          "x-ms-apimTemplateParameter.urlTemplate": "https://api:@connectionParameters('api_key')@api.nunux.org"
+        }
+      }
+    ],
+    "publisher": "Nirmal Deekshith",
+    "stackOwner": "Nunux Keeper"
+  }
+}

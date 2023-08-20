@@ -34,19 +34,68 @@
               "invoice": {
                 "type": "object",
                 "properties": {
-                  "notes": {
+                  "dated_on": {
                     "type": "string",
-                    "x-ms-summary": "Notes",
-                    "description": "Notes"
+                    "x-ms-summary": "Dated On",
+                    "description": "Date of invoice in YYYY-MM-DD format"
+                  },
+                  "due_on": {
+                    "type": "string",
+                    "x-ms-summary": "Due On",
+                    "description": "When invoice is due, in YYYY-MM-DD format"
+                  },
+                 
+                  "currency": {
+                    "type": "string",
+                    "x-ms-summary": "Currency",
+                    "description": "Currency"
+                  },
+                  "exchange_rate": {
+                    "type": "string",
+                    "x-ms-summary": "Exchange Rate",
+                    "description": "Exchange Rate"
+                  },
+                  
+                  "status": {
+                    "type": "string",
+                    "x-ms-summary": "Status",
+                    "description": "Status"
+                  },
+             
+                  "invoice_items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string",
+                          "x-ms-summary": "description",
+                          "description": "description"
+                        },
+                        "item_type": {
+                          "type": "string",
+                          "x-ms-summary": "Item Type",
+                          "description": "Item Type"
+                        },
+                        "price": {
+                          "type": "string",
+                          "x-ms-summary": "Price",
+                          "description": "Price"
+                        },
+                        "quantity": {
+                          "type": "string",
+                          "x-ms-summary": "Quantity",
+                          "description": "Quantity"
+                        }
+                      }
+                    },
+                    "x-ms-summary": "Invoice Items",
+                    "description": "Invoice Items"
                   }
+                 
                 },
                 "x-ms-summary": "Invoice",
                 "description": "Invoice"
-              }
-            },
-            "default": {
-              "invoice": {
-                "notes": "An example of some additional text."
               }
             }
           },

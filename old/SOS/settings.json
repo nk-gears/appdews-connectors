@@ -1,9 +1,9 @@
 {
-  "connectorId": "shared_nunux-20keeper-20demo1-5f9efd50f3eb6b19ac-5fa7ba4a50058013f4",
-  "environment": "Default-9ea2fa3a-1bc0-4b47-85f6-4116b5e6fd14",
+  "connectorId": "shared_sos-20inventory-5fa1c41dcf6720de46-5f5103fd5644acc721",
+  "environment": "Default-850c242d-e5b0-4145-ae1b-8a78880d430d",
   "apiProperties": "apiProperties.json",
   "apiDefinition": "apiDefinition.swagger.json",
-  "icon": "icon.png",
+  "icon": null,
   "powerAppsUrl": "https://api.powerapps.com",
   "powerAppsApiVersion": "2016-11-01"
 }
