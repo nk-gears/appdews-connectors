@@ -1,2 +1,2 @@
 
-pucc build --sourceFolderPath "/Users/Nirmal/projects/appdews/Microsoft/appdews-connectors/src/connectors/freeagent" --name freeagent --targetFolderPath "/Users/Nirmal/projects/appdews/Microsoft/appdews-connectors/src/connectors/freeagent/dist/freeagent"
+pucc build --sourceFolderPath "/Users/nirmalk/projects/freelancing/app-dews/appdews-connectors/src/connectors/Freeagent" --name freeagent --targetFolderPath "/Users/nirmalk/projects/freelancing/app-dews/appdews-connectors/src/connectors/FreeAgent/dist"
