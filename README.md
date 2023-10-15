@@ -4,8 +4,12 @@ Personal Repository to Design Develop and Publish Independent Custom Connectors 
 
 This repository uses the PUCC-cli to build the connectors
 
-# TODO
+# TODO - API Connectors
 
-- [] Add Support for JSON Comments and Strip out during the build
-- [] Add quotable Connector
-- [] Add Nunux Connector
+- [X] FreeAgent
+- [X] ITGlue
+- [ ] BoxC
+
+#### Connectors with grant Credentials
+
+- [ ] Dell Warranty

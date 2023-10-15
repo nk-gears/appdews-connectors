@@ -1,0 +1,13 @@
+{
+  "templateId": "setproperty",
+  "title": "Set Title for Invoice",
+  "parameters": {
+    "x-ms-apimTemplate-operationName": [
+      "ListInvoices"
+    ],
+    "x-ms-apimTemplateParameter.newPropertyParentPathTemplate": "@body().invoices",
+    "x-ms-apimTemplateParameter.newPropertySubPathTemplate": "title",
+    "x-ms-apimTemplateParameter.propertyValuePathTemplate": "'{@item()['id']}-{@item()['reference']}'",
+    "x-ms-apimTemplate-policySection": "Response"
+  }
+}

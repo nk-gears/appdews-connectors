@@ -1,0 +1,15 @@
+{
+  "templateId": "stringreplace",
+  "title": "Replace Contact Url to ID",
+  "parameters": {
+    "x-ms-apimTemplate-operationName": [
+      "GetContacts"
+    ],
+    "x-ms-apimTemplateParameter.propertyParentPath": "@body().contacts",
+    "x-ms-apimTemplateParameter.propertySubPath": "url",
+    "x-ms-apimTemplateParameter.sourceString": "https://api.freeagent.com/v2/contacts/",
+    "x-ms-apimTemplateParameter.replacementString": "",
+    "x-ms-apimTemplateParameter.newPropertyPath": "@item().id",
+    "x-ms-apimTemplate-policySection": "Response"
+  }
+}

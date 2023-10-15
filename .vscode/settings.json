@@ -1,6 +1,30 @@
 {
   "files.exclude": {
     "src/connectors/nunux-keeper": true,
-    "src/connectors/onedrive-hook": true
+    "src/connectors/onedrive-hook": true,
+    "../nkdews.me/themes": true,
+    "../nkdews.me/*.hugo_build": true,
+    "../nkdews.me/*.hugo_build.*": true,
+    "../nkdews.me/archetypes": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.DS_Store": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.git": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.gitignore": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.gitmodules": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.hugo_build.lock": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.spelling": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/.vscode": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/_enwrite_config.yml": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/archetypes": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/config.toml": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/config.ymltxt": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/configTaxo.yml": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/data": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/layouts": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/netlify.toml": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/public": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/resources": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/scripts": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/static": true,
+    "Users/nirmalk/projects/freelancing/app-dews/nkdews.me/themes": true
   }
 }

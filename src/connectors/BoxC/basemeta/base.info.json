@@ -1,0 +1,55 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "FreeAgent",
+    "contact": {
+      "name": "Nirmal",
+      "url": "https://nkdews.me",
+      "email": "nirmalk.web@gmail.com"
+    },
+    "description": "Freeagent Connector helps you to retrieve and update data in your FreeAgent Account. This connectors supports only core operations dealing with Invoice, Recurring Invoice and Contacts."
+  },
+  "host": "api.freeagent.com",
+  "basePath": "/v2",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://www.freeagent.com/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://www.freeagent.com/website/privacy/"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "Finance;Data"
+    }
+  ],
+  "securityDefinitions": {
+    "oauth2_auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://api.freeagent.com/v2/approve_app",
+      "tokenUrl": "https://api.freeagent.com/v2/token_endpoint",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2_auth": []
+    }
+  ],
+  "tags": []
+}
